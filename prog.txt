@@ -1,0 +1,122 @@
+package Ejercicios.Ejercicio7.Prueba;
+
+import java.util.Scanner;
+
+import Ejercicios.Ejercicio7.Codigo.*;
+
+public class PruebaEjercicio7 {
+    public static void main(String[] args) {
+        Scanner teclado = new Scanner(System.in);
+        int opcion[] = new int[2];
+        int valorx[] = new int[4];
+        int valory[] = new int[4];
+        int movimiento[] = new int[2];
+
+        do {
+            System.out.println("\nIngrese una opcion: \n1-. Entrar \n2-. Salir");
+            opcion[0] = teclado.nextInt();
+
+            if (opcion[0] == 1) {
+                System.out.println("Ingrese la opcion a realizar: \n1-. Un punto en el plano"
+                        + "\n2-. Circunferencia en el plano \n3-. Rectangulo en el plano");
+                opcion[1] = teclado.nextInt();
+
+                switch (opcion[1]) {
+                    case 1:
+                        valorXY(1);
+                        break;
+                    case 2:
+                        valorXY(2);
+                        break;
+                    case 3:
+                        valorXY(3);
+                        break;
+                }
+            }
+        } while (opcion[0] != 2);
+    }
+
+    public static void valorXY(int opcion) {
+        Scanner teclado = new Scanner(System.in);
+        int valorx[] = new int[2];
+        int valory[] = new int[2];
+        int movimiento[] = new int[2];
+
+        System.out.println("Ingrese el valor de x1: ");
+        valorx[0] = teclado.nextInt();
+        System.out.println("Ingrese el valor de y1: ");
+        valory[0] = teclado.nextInt();
+        System.out.println("Ingrese los movimientos de x: ");
+        movimiento[0] = teclado.nextInt();
+        System.out.println("Ingrese los movimientos de y: ");
+        movimiento[1] = teclado.nextInt();
+        if (opcion == 1) {
+            Movable m1 = new MovablePoint(valorx[0], valory[0], movimiento[0], movimiento[1]);
+            movimientosSeparados(m1);
+        }
+        if (opcion == 2) {
+            System.out.println("Ingrese el valor del radio");
+            int radio = teclado.nextInt();
+            Movable m1 = new MovableCirculo(valorx[0], valory[0], movimiento[0], movimiento[1], radio);
+            movimientosSeparados(m1);
+        }
+        if (opcion == 3) {
+            System.out.println("Ingrese el valor de x2: ");
+            valorx[1] = teclado.nextInt();
+            System.out.println("Ingrese el valor de y2: ");
+            valory[1] = teclado.nextInt();
+            MovableRectangulo m1 = new MovableRectangulo(valorx[0], valory[0], valorx[1], valory[1], movimiento[0],
+                    movimiento[1]);
+            movimientosJuntos(m1);
+        }
+    }
+
+    public static void movimientosSeparados(Movable movable) {
+        Scanner teclado = new Scanner(System.in);
+        int opcion;
+        do {
+            System.out.println("Desea realizar algun movimiento: \n1-. Si \n2-. No");
+            opcion = teclado.nextInt();
+            if (opcion == 1) {
+                System.out.println(
+                        "Ingrese el movimiento a realizar: \n1-. Derecha \n2-. Izquierda" + "\n3-. Arriba \n4-.Abajo");
+                int opcion2 = teclado.nextInt();
+                if (opcion2 == 1) {
+                    movable.moverDerecha();
+                }
+                if (opcion2 == 2) {
+                    movable.moverIzquierda();
+                }
+                if (opcion2 == 3) {
+                    movable.moverArriba();
+                }
+                if (opcion2 == 4) {
+                    movable.moverAbajo();
+                }
+                System.out.println(movable);
+            }
+        } while (opcion != 2);
+        System.out.println(movable);
+    }
+
+    public static void movimientosJuntos(MovableRectangulo movableRectangulo) {
+        Scanner teclado = new Scanner(System.in);
+        int opcion;
+        do {
+            System.out.println("Desea realizar algun movimiento: \n1-. Si \n2-. No");
+            opcion = teclado.nextInt();
+            if (opcion == 1) {
+                System.out.println("Ingrese el movimiento a realizar: \n1-. Arriba-Izquierda" + "\n2-. Abajo-Derecha ");
+                int opcion2 = teclado.nextInt();
+                if (opcion2 == 1) {
+                    movableRectangulo.moverArriba_Izquierda();
+                }
+                if (opcion2 == 2) {
+                    movableRectangulo.moverAbajo_Derecha();
+                }
+                System.out.println(movableRectangulo);
+            }
+        } while (opcion != 2);
+        System.out.println(movableRectangulo);
+    }
+}
